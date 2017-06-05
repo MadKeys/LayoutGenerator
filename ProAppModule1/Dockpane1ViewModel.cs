@@ -415,7 +415,12 @@ namespace ProAppModule1
             var zoomToExtentTasks = new List<Task<bool>>();
             zoomToExtentTasks.Add(ChangeExtent(await GetInsetMapFrameAsync(), cityQueryFilter));
             zoomToExtentTasks.Add(ChangeExtent(await GetNeighborhoodMapFrameAsync(), cityQueryFilter));
-            await Task.WhenAll(zoomToExtentTasks);
+            bool[] statuses = await Task.WhenAll(zoomToExtentTasks);
+            string completed = "";
+            foreach(bool status in statuses)
+            {
+                completed += status.ToString() + " ,";
+            }
         }
 
         public async Task ChangeNeighborhoodSelection(SelectionChangedEventArgs eventArgs)
@@ -456,7 +461,8 @@ namespace ProAppModule1
             NeighborhoodZoomCompleted = "Focusing...";
             if(selectedNeighborhoods != null)
             {
-                await ChangeExtent(neighborhoodMapFrame, GetNeighborhoodQueryFilter(selectedNeighborhoods.FirstOrDefault()));
+                NeighborhoodZoomCompleted = 
+                    (await ChangeExtent(neighborhoodMapFrame, GetNeighborhoodQueryFilter(selectedNeighborhoods.FirstOrDefault()))).ToString();
             }
         }
 
@@ -645,49 +651,51 @@ namespace ProAppModule1
 
         #region Update Symbology
 
+        /// <summary>
+        ///     Highlights a selected neighborhood or greys a deselected one
+        /// </summary>
+        /// <param name="featureLayer"></param>
+        ///     The layer containing the feature whose symbology is to be updated
+        /// <param name="neighborhood"></param>
+        ///     Must be equal to one of the labels of featureLayer's renderer's uniqueValueGroup's classes
+        /// <param name="selection"></param>
+        ///     If true, highlights the neighborhood. Otherwise, greys it
+        /// <returns></returns>
         private async Task UpdateNeighborhoodSymbology(FeatureLayer featureLayer, string neighborhood, bool selection)
         {
-            /* Modify existing renderer or create new?
-             *      Create new from XML and modify only the most recently selected features
-             *          Eliminates the need to keep track of previous selection and change it back
-             *      Or just modify the existing render
-             *          Probably improves performance if the previously selected feature can be quickly identified
-             *              What if the city selection is changed
-             *          Change the previously selected feature back
-             *          Highlight the newly selected feature
-             *
-             * string xmlUri = @"C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\OH_blocks.xml";
-             * XmlReader xmlReader = XmlReader.Create(xmlUri);
-             * var renderer = new CIMUniqueValueRenderer();
-             * renderer.ReadXml(xmlReader); */
-
-            // Obtain a reference to the existing renderer
             var renderer = await QueuedTask.Run(() => featureLayer.GetRenderer());
 
             var uniqueValueRenderer = renderer as CIMUniqueValueRenderer;
             CIMUniqueValueGroup uniqueValueGroup = uniqueValueRenderer.Groups.FirstOrDefault();
-            var neighborhoodClass = uniqueValueGroup.Classes.FirstOrDefault(
-                (x) => x.Label.Equals(neighborhood));
+            CIMUniqueValueClass neighborhoodClass = null;
+            int classIndex = -1;
+            for(int i = 0; i < uniqueValueGroup.Classes.Count(); i++)
+            {
+                if (uniqueValueGroup.Classes[i].Label.Equals(neighborhood))
+                {
+                    neighborhoodClass = uniqueValueGroup.Classes[i];
+                    classIndex = i;
+                }
+            }
             var polygonSymbol = neighborhoodClass.Symbol.Symbol as CIMPolygonSymbol;
 
-            // will this query work?
             var solidFillSymbolLayer = polygonSymbol.SymbolLayers.FirstOrDefault(
                 (x) => x.GetType().Equals(typeof(CIMSolidFill))) as CIMSolidFill;
 
-            // Possible type conversion problems here if colors are modified in ArcGIS Pro
-            CIMHSVColor hsvColor = solidFillSymbolLayer.Color as CIMHSVColor;
+            CIMColor color;
 
             if (selection)
             {
-                // TODO: Change the color
+                var fixedColorRamp = uniqueValueRenderer.ColorRamp as CIMFixedColorRamp;
+                color = fixedColorRamp.Colors[classIndex];
             }
             else // deselection
             {
-                hsvColor.SetColorComponent(0, 110);
-                hsvColor.SetColorComponent(1, 110);
-                hsvColor.SetColorComponent(2, 110);
-                hsvColor.SetColorComponent(3, 100);
+                color = new CIMHSVColor();
+                color = CIMColor.CreateHSVColor(110, 110, 110);
             }
+
+            solidFillSymbolLayer.Color = color;
 
             await QueuedTask.Run(() => featureLayer.SetRenderer(renderer));
         }
