@@ -689,8 +689,8 @@ namespace ProAppModule1
             }
             var polygonSymbol = neighborhoodClass.Symbol.Symbol as CIMPolygonSymbol;
 
-            var solidFillSymbolLayer = polygonSymbol.SymbolLayers.FirstOrDefault(
-                (x) => x.GetType().Equals(typeof(CIMSolidFill))) as CIMSolidFill;
+            /* var solidFillSymbolLayer = polygonSymbol.SymbolLayers.FirstOrDefault(
+                (x) => x.GetType().Equals(typeof(CIMSolidFill))) as CIMSolidFill; */
 
             CIMColor color;
 
@@ -701,11 +701,13 @@ namespace ProAppModule1
             }
             else // deselection
             {
-                color = new CIMHSVColor();
-                color = CIMColor.CreateHSVColor(110, 110, 110);
+                color = CIMColor.CreateGrayColor(50);
             }
 
-            solidFillSymbolLayer.Color = color;
+            SymbolFactory.SetColor(polygonSymbol, color);
+
+            /* solidFillSymbolLayer.ColorLocked = false;
+            solidFillSymbolLayer.Color = color; */
 
             await QueuedTask.Run(() => featureLayer.SetRenderer(renderer));
         }
