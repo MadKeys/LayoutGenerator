@@ -47,7 +47,8 @@ namespace ProAppModule1
 
         private async void neighborhoodComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            await await Dispatcher.InvokeAsync(() => _viewModel.ChangeNeighborhoodSelection(e));
+            Task dispatcherTask = await Dispatcher.InvokeAsync(() => _viewModel.ChangeNeighborhoodSelection(e));
+            await dispatcherTask;
         }
 
         private async void cityComboBox_Initialized(object sender, EventArgs e)

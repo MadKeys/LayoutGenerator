@@ -425,8 +425,18 @@ namespace ProAppModule1
 
         public async Task ChangeNeighborhoodSelection(SelectionChangedEventArgs eventArgs)
         {
-            string[] deselectedNeighborhoods = eventArgs.RemovedItems as string[];
-            string[] selectedNeighborhoods = eventArgs.AddedItems as string[];
+            var deselectedNeighborhoods = new List<string>();
+            var selectedNeighborhoods = new List<string>();
+
+            foreach(string item in eventArgs.RemovedItems)
+            {
+                deselectedNeighborhoods.Add(item);
+            }
+
+            foreach(string item in eventArgs.AddedItems)
+            {
+                selectedNeighborhoods.Add(item);
+            }
 
             MapFrame neighborhoodMapFrame = await GetNeighborhoodMapFrameAsync();
             MapFrame insetMapFrame = await GetInsetMapFrameAsync();
@@ -687,7 +697,7 @@ namespace ProAppModule1
             if (selection)
             {
                 var fixedColorRamp = uniqueValueRenderer.ColorRamp as CIMFixedColorRamp;
-                color = fixedColorRamp.Colors[classIndex];
+                color = fixedColorRamp.Colors[classIndex - 1];
             }
             else // deselection
             {
