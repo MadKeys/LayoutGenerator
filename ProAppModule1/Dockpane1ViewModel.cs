@@ -358,6 +358,12 @@ namespace ProAppModule1
 
         #region Update Properties
 
+        /// <summary>
+        ///     Updates the list of city names using the contents of the referenced project
+        /// </summary>
+        /// <param name="project">
+        ///     A reference to the project from which city names will be drawn
+        /// </param>
         public void UpdateCityNames(Project project)
         {
             IEnumerable<MapProjectItem> mapProjectItems = project.GetItems<MapProjectItem>();
@@ -373,6 +379,14 @@ namespace ProAppModule1
             CityNames = cityNames;
         }
 
+        /// <summary>
+        ///     Updates the list of neighborhood names to include only the neighborhoods in the newly selected city.
+        ///     TODO: Check map layers to determine the format of the data and handle accordingly
+        /// </summary>
+        /// <param name="cityName">
+        ///     The name of the selected city.
+        /// </param>
+        /// <returns></returns>
         public async Task UpdateNeighborhoodNamesAsync(string cityName)
         {
             string mpiName = cityName + " Neighborhoods";
@@ -384,6 +398,15 @@ namespace ProAppModule1
             NeighborhoodNames = neighborhoodNamesList;
         }
 
+
+        /// <summary>
+        ///     Updates the layout's map frames to show the maps associated with the newly selected city.
+        ///     TODO: Update text elements of the layout
+        /// </summary>
+        /// <param name="cityName">
+        ///     The name of the selected city
+        /// </param>
+        /// <returns></returns>
         public async Task UpdateLayoutCityElementsAsync(string cityName)
         {
             Task<Layout> getLayoutTask = GetLayoutAsync(_layoutName);
@@ -402,6 +425,15 @@ namespace ProAppModule1
             await Task.WhenAll(setMapTasks).ConfigureAwait(false);
         }
 
+        /// <summary>
+        ///     Performs the work that necessarily follows a change in city selection
+        /// </summary>
+        /// <param name="cityName">
+        ///     The name of the selected city
+        /// </param>
+        /// <returns>
+        ///     A Task representing the work to be performed asynchronously
+        /// </returns>
         public async Task ChangeCitySelection(string cityName)
         {
             CityZoomCompleted = "Focusing...";
