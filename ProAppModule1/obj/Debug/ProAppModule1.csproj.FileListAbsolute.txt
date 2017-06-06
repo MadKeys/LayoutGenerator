@@ -7,3 +7,13 @@ C:\Users\mkeister\ArcGIS_Pro_Addins\ProAppModule1\ProAppModule1\obj\Debug\Dockpa
 C:\Users\mkeister\ArcGIS_Pro_Addins\ProAppModule1\ProAppModule1\obj\Debug\ProAppModule1.g.resources
 C:\Users\mkeister\ArcGIS_Pro_Addins\ProAppModule1\ProAppModule1\obj\Debug\ProAppModule1.dll
 C:\Users\mkeister\ArcGIS_Pro_Addins\ProAppModule1\ProAppModule1\obj\Debug\ProAppModule1.pdb
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\bin\Debug\ProAppModule1.dll
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\bin\Debug\ProAppModule1.pdb
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\obj\Debug\Dockpane1.g.cs
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\obj\Debug\ProAppModule1_MarkupCompile.cache
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\obj\Debug\ProAppModule1_MarkupCompile.lref
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\obj\Debug\Dockpane1.baml
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\obj\Debug\ProAppModule1.g.resources
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\obj\Debug\ProAppModule1.dll
+C:\Users\mkeister\ArcGIS_Pro_Addins\LayoutGenerator\ProAppModule1\obj\Debug\ProAppModule1.pdb
+C:\Users\mkeister\arcgis_pro_addins\layoutgenerator\ProAppModule1\obj\Debug\ProAppModule1.csprojResolveAssemblyReference.cache

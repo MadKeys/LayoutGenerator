@@ -1,0 +1,6 @@
+*.dll
+*.suo
+*.cache
+*.pdb
+*.esriAddinX
+*.lref

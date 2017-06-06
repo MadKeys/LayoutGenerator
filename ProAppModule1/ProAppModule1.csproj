@@ -134,6 +134,11 @@
   <ItemGroup>
     <AddInContent Include="DarkImages\GenericButtonPurple32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="OH_blocks.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
   PackageAction can be:

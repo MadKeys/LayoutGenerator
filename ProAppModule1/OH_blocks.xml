@@ -1,0 +1,1505 @@
+<CIMFeatureLayer xsi:type="typens:CIMFeatureLayer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:typens="http://www.esri.com/schemas/ArcGIS/1.4.0">
+  <Name>OH_Blocks</Name>
+  <URI>CIMPATH=brownlee_woods/oh_blocks.xml</URI>
+  <SourceModifiedTime xsi:type="typens:TimeInstant">
+    <Time>0001-01-01T00:00:00</Time>
+  </SourceModifiedTime>
+  <MetadataURI>CIMPATH=Metadata/9aa184e64a8f1ae176247b386705f00c.xml</MetadataURI>
+  <Attribution />
+  <Description />
+  <Expanded>true</Expanded>
+  <LayerType>Operational</LayerType>
+  <MaxScale>0</MaxScale>
+  <MinScale>0</MinScale>
+  <ShowLegends>true</ShowLegends>
+  <Transparency>70</Transparency>
+  <Visibility>true</Visibility>
+  <DisplayCacheType>Permanent</DisplayCacheType>
+  <MaxDisplayCacheAge>5</MaxDisplayCacheAge>
+  <ShowPopups>true</ShowPopups>
+  <ServiceLayerID>-1</ServiceLayerID>
+  <Searchable>false</Searchable>
+  <AutoGenerateFeatureTemplates>false</AutoGenerateFeatureTemplates>
+  <FeatureTable xsi:type="typens:CIMFeatureTable">
+    <DefinitionExpression />
+    <DisplayField>NAME</DisplayField>
+    <Editable>true</Editable>
+    <FieldDescriptions xsi:type="typens:ArrayOfCIMFieldDescription">
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>OBJECTID</Alias>
+        <FieldName>OBJECTID</FieldName>
+        <Highlight>false</Highlight>
+        <NumberFormat xsi:type="typens:CIMNumericFormat">
+          <AlignmentOption>esriAlignRight</AlignmentOption>
+          <AlignmentWidth>12</AlignmentWidth>
+          <RoundingOption>esriRoundNumberOfDecimals</RoundingOption>
+          <RoundingValue>0</RoundingValue>
+          <ShowPlusSign>false</ShowPlusSign>
+          <UseSeparator>false</UseSeparator>
+          <ZeroPad>false</ZeroPad>
+        </NumberFormat>
+        <ReadOnly>true</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>Shape</Alias>
+        <FieldName>Shape</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>STATEFP</Alias>
+        <FieldName>STATEFP</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>COUNTYFP</Alias>
+        <FieldName>COUNTYFP</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>TRACTCE</Alias>
+        <FieldName>TRACTCE</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>BLKGRPCE</Alias>
+        <FieldName>BLKGRPCE</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>AFFGEOID</Alias>
+        <FieldName>AFFGEOID</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>GEOID</Alias>
+        <FieldName>GEOID</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>NAME</Alias>
+        <FieldName>NAME</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>LSAD</Alias>
+        <FieldName>LSAD</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>ALAND</Alias>
+        <FieldName>ALAND</FieldName>
+        <Highlight>false</Highlight>
+        <NumberFormat xsi:type="typens:CIMNumericFormat">
+          <AlignmentOption>esriAlignRight</AlignmentOption>
+          <AlignmentWidth>12</AlignmentWidth>
+          <RoundingOption>esriRoundNumberOfDecimals</RoundingOption>
+          <RoundingValue>6</RoundingValue>
+          <ShowPlusSign>false</ShowPlusSign>
+          <UseSeparator>false</UseSeparator>
+          <ZeroPad>false</ZeroPad>
+        </NumberFormat>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>AWATER</Alias>
+        <FieldName>AWATER</FieldName>
+        <Highlight>false</Highlight>
+        <NumberFormat xsi:type="typens:CIMNumericFormat">
+          <AlignmentOption>esriAlignRight</AlignmentOption>
+          <AlignmentWidth>12</AlignmentWidth>
+          <RoundingOption>esriRoundNumberOfDecimals</RoundingOption>
+          <RoundingValue>6</RoundingValue>
+          <ShowPlusSign>false</ShowPlusSign>
+          <UseSeparator>false</UseSeparator>
+          <ZeroPad>false</ZeroPad>
+        </NumberFormat>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>Shape_Length</Alias>
+        <FieldName>Shape_Length</FieldName>
+        <Highlight>false</Highlight>
+        <NumberFormat xsi:type="typens:CIMNumericFormat">
+          <AlignmentOption>esriAlignRight</AlignmentOption>
+          <AlignmentWidth>12</AlignmentWidth>
+          <RoundingOption>esriRoundNumberOfDecimals</RoundingOption>
+          <RoundingValue>6</RoundingValue>
+          <ShowPlusSign>false</ShowPlusSign>
+          <UseSeparator>false</UseSeparator>
+          <ZeroPad>false</ZeroPad>
+        </NumberFormat>
+        <ReadOnly>true</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>Shape_Area</Alias>
+        <FieldName>Shape_Area</FieldName>
+        <Highlight>false</Highlight>
+        <NumberFormat xsi:type="typens:CIMNumericFormat">
+          <AlignmentOption>esriAlignRight</AlignmentOption>
+          <AlignmentWidth>12</AlignmentWidth>
+          <RoundingOption>esriRoundNumberOfDecimals</RoundingOption>
+          <RoundingValue>6</RoundingValue>
+          <ShowPlusSign>false</ShowPlusSign>
+          <UseSeparator>false</UseSeparator>
+          <ZeroPad>false</ZeroPad>
+        </NumberFormat>
+        <ReadOnly>true</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+      <CIMFieldDescription xsi:type="typens:CIMFieldDescription">
+        <Alias>Neighood</Alias>
+        <FieldName>Neighood</FieldName>
+        <Highlight>false</Highlight>
+        <ReadOnly>false</ReadOnly>
+        <Visible>true</Visible>
+        <ValueAsRatio>false</ValueAsRatio>
+        <Searchable>false</Searchable>
+        <SearchMode>Exact</SearchMode>
+      </CIMFieldDescription>
+    </FieldDescriptions>
+    <TimeFields xsi:type="typens:CIMTimeTableDefinition">
+      <StartTimeField />
+      <EndTimeField />
+      <TimeValueFormat />
+      <TrackIDField />
+    </TimeFields>
+    <TimeDefinition xsi:type="typens:CIMTimeDataDefinition">
+      <UseTime>false</UseTime>
+      <HasLiveData>false</HasLiveData>
+    </TimeDefinition>
+    <TimeDisplayDefinition xsi:type="typens:CIMTimeDisplayDefinition">
+      <Cumulative>false</Cumulative>
+      <TimeInterval>0</TimeInterval>
+      <TimeIntervalUnits>esriTimeUnitsHours</TimeIntervalUnits>
+      <TimeOffset>0</TimeOffset>
+      <TimeOffsetUnits>esriTimeUnitsYears</TimeOffsetUnits>
+    </TimeDisplayDefinition>
+    <SelectRelatedData>false</SelectRelatedData>
+    <DataConnection xsi:type="typens:CIMStandardDataConnection">
+      <WorkspaceConnectionString>DATABASE=P:\ArcGIS\Projects\Neighborhood_Stabilization\YNDC\YNDC.gdb</WorkspaceConnectionString>
+      <WorkspaceFactory>FileGDB</WorkspaceFactory>
+      <Dataset>OH_Blocks</Dataset>
+      <DatasetType>esriDTFeatureClass</DatasetType>
+    </DataConnection>
+    <StudyAreaSpatialRel>esriSpatialRelUndefined</StudyAreaSpatialRel>
+    <SearchOrder>esriSearchOrderSpatial</SearchOrder>
+    <IsLicensedDataSource>false</IsLicensedDataSource>
+  </FeatureTable>
+  <FeatureTemplates xsi:type="typens:ArrayOfCIMEditingTemplate">
+    <CIMEditingTemplate xsi:type="typens:CIMFeatureTemplate">
+      <Description />
+      <Name>&lt;Null&gt;</Name>
+      <Tags>Polygon</Tags>
+      <ToolProgID>{8F79967B-66A0-4A1C-B884-F44BC7E26921}</ToolProgID>
+      <DefaultValues xsi:type="typens:PropertySet">
+        <PropertyArray xsi:type="typens:ArrayOfPropertySetProperty">
+          <PropertySetProperty xsi:type="typens:PropertySetProperty">
+            <Key>Neighood</Key>
+            <Value xsi:nil="true" />
+          </PropertySetProperty>
+        </PropertyArray>
+      </DefaultValues>
+    </CIMEditingTemplate>
+    <CIMEditingTemplate xsi:type="typens:CIMFeatureTemplate">
+      <Description />
+      <Name>Brownlee Woods</Name>
+      <Tags>Polygon</Tags>
+      <ToolProgID>{8F79967B-66A0-4A1C-B884-F44BC7E26921}</ToolProgID>
+      <DefaultValues xsi:type="typens:PropertySet">
+        <PropertyArray xsi:type="typens:ArrayOfPropertySetProperty">
+          <PropertySetProperty xsi:type="typens:PropertySetProperty">
+            <Key>Neighood</Key>
+            <Value xsi:type="xs:string">Brownlee Woods</Value>
+          </PropertySetProperty>
+        </PropertyArray>
+      </DefaultValues>
+    </CIMEditingTemplate>
+    <CIMEditingTemplate xsi:type="typens:CIMFeatureTemplate">
+      <Description />
+      <Name>Crandall Park</Name>
+      <Tags>Polygon</Tags>
+      <ToolProgID>{8F79967B-66A0-4A1C-B884-F44BC7E26921}</ToolProgID>
+      <DefaultValues xsi:type="typens:PropertySet">
+        <PropertyArray xsi:type="typens:ArrayOfPropertySetProperty">
+          <PropertySetProperty xsi:type="typens:PropertySetProperty">
+            <Key>Neighood</Key>
+            <Value xsi:type="xs:string">Crandall Park</Value>
+          </PropertySetProperty>
+        </PropertyArray>
+      </DefaultValues>
+    </CIMEditingTemplate>
+  </FeatureTemplates>
+  <HtmlPopupEnabled>true</HtmlPopupEnabled>
+  <HtmlPopupFormat xsi:type="typens:CIMHtmlPopupFormat">
+    <HtmlRedirectField />
+    <HtmlRedirectFieldPrefix />
+    <HtmlRedirectFieldSuffix />
+    <HtmlXSLStyleSheet />
+    <HtmlHideFieldNameColumn>false</HtmlHideFieldNameColumn>
+    <HtmlUseCodedDomainValues>true</HtmlUseCodedDomainValues>
+    <HtmlPresentationStyle>TwoColumnTable</HtmlPresentationStyle>
+  </HtmlPopupFormat>
+  <IsFlattened>true</IsFlattened>
+  <Selectable>true</Selectable>
+  <SelectionSymbol xsi:type="typens:CIMSymbolReference">
+    <StylePath />
+    <Symbol xsi:type="typens:CIMPolygonSymbol">
+      <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+        <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+          <Enable>true</Enable>
+          <Name />
+          <ColorLocked>false</ColorLocked>
+          <CapStyle>Round</CapStyle>
+          <JoinStyle>Round</JoinStyle>
+          <LineStyle3D>Strip</LineStyle3D>
+          <MiterLimit>10</MiterLimit>
+          <PrimitiveName />
+          <Width>2</Width>
+          <CloseCaps3D>false</CloseCaps3D>
+          <Color xsi:type="typens:CIMRGBColor">
+            <Values xsi:type="typens:ArrayOfDouble">
+              <Double>0</Double>
+              <Double>255</Double>
+              <Double>255</Double>
+              <Double>100</Double>
+            </Values>
+          </Color>
+        </CIMSymbolLayer>
+      </SymbolLayers>
+      <ThumbnailURI />
+      <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+    </Symbol>
+    <SymbolName>Symbol_72</SymbolName>
+    <MinScale>0</MinScale>
+    <MaxScale>0</MaxScale>
+    <MinDistance>0</MinDistance>
+    <MaxDistance>0</MaxDistance>
+  </SelectionSymbol>
+  <UseSelectionSymbol>false</UseSelectionSymbol>
+  <FeatureCacheType>None</FeatureCacheType>
+  <EnableDisplayFilters>true</EnableDisplayFilters>
+  <ExclusionSet xsi:type="typens:ArrayOfLong" />
+  <LabelClasses xsi:type="typens:ArrayOfCIMLabelClass">
+    <CIMLabelClass xsi:type="typens:CIMLabelClass">
+      <Expression>[NAME]</Expression>
+      <ExpressionEngine>VBScript</ExpressionEngine>
+      <FeaturesToLabel>AllVisibleFeatures</FeaturesToLabel>
+      <MaplexLabelPlacementProperties xsi:type="typens:CIMMaplexLabelPlacementProperties">
+        <FeatureType>Line</FeatureType>
+        <AlignLabelToLineDirection>false</AlignLabelToLineDirection>
+        <AllowAsymmetricOverrun>false</AllowAsymmetricOverrun>
+        <AllowStraddleStacking>false</AllowStraddleStacking>
+        <AvoidPolygonHoles>true</AvoidPolygonHoles>
+        <BackgroundLabel>false</BackgroundLabel>
+        <BoundaryLabelingAllowHoles>false</BoundaryLabelingAllowHoles>
+        <BoundaryLabelingAllowSingleSided>false</BoundaryLabelingAllowSingleSided>
+        <BoundaryLabelingSingleSidedOnLine>false</BoundaryLabelingSingleSidedOnLine>
+        <CanAbbreviateLabel>false</CanAbbreviateLabel>
+        <CanFlipStackedStreetLabel>false</CanFlipStackedStreetLabel>
+        <CanKeyNumberLabel>false</CanKeyNumberLabel>
+        <CanOverrunFeature>true</CanOverrunFeature>
+        <CanPlaceLabelOnTopOfFeature>false</CanPlaceLabelOnTopOfFeature>
+        <CanPlaceLabelOutsidePolygon>true</CanPlaceLabelOutsidePolygon>
+        <CanReduceFontSize>false</CanReduceFontSize>
+        <CanReduceLeading>false</CanReduceLeading>
+        <CanRemoveOverlappingLabel>true</CanRemoveOverlappingLabel>
+        <CanShiftPointLabel>false</CanShiftPointLabel>
+        <CanStackLabel>true</CanStackLabel>
+        <CanTruncateLabel>false</CanTruncateLabel>
+        <ConnectionType>Unambiguous</ConnectionType>
+        <ConstrainOffset>NoConstraint</ConstrainOffset>
+        <ContourAlignmentType>Page</ContourAlignmentType>
+        <ContourLadderType>Straight</ContourLadderType>
+        <ContourMaximumAngle>90</ContourMaximumAngle>
+        <EnableConnection>true</EnableConnection>
+        <EnablePointPlacementPriorities>false</EnablePointPlacementPriorities>
+        <EnablePolygonFixedPosition>false</EnablePolygonFixedPosition>
+        <EnableSecondaryOffset>false</EnableSecondaryOffset>
+        <FeatureWeight>100</FeatureWeight>
+        <FontHeightReductionLimit>4</FontHeightReductionLimit>
+        <FontHeightReductionStep>0.5</FontHeightReductionStep>
+        <FontWidthReductionLimit>90</FontWidthReductionLimit>
+        <FontWidthReductionStep>5</FontWidthReductionStep>
+        <GraticuleAlignment>false</GraticuleAlignment>
+        <GraticuleAlignmentType>Straight</GraticuleAlignmentType>
+        <IsLabelBufferHardConstraint>false</IsLabelBufferHardConstraint>
+        <IsMinimumSizeBasedOnArea>false</IsMinimumSizeBasedOnArea>
+        <IsOffsetFromFeatureGeometry>false</IsOffsetFromFeatureGeometry>
+        <LabelBuffer>15</LabelBuffer>
+        <LabelLargestPolygon>true</LabelLargestPolygon>
+        <LabelPriority>-1</LabelPriority>
+        <LabelStackingProperties xsi:type="typens:CIMMaplexLabelStackingProperties">
+          <StackAlignment>ChooseBest</StackAlignment>
+          <MaximumNumberOfLines>3</MaximumNumberOfLines>
+          <MinimumNumberOfCharsPerLine>3</MinimumNumberOfCharsPerLine>
+          <MaximumNumberOfCharsPerLine>24</MaximumNumberOfCharsPerLine>
+        </LabelStackingProperties>
+        <LineFeatureType>General</LineFeatureType>
+        <LinePlacementMethod>OffsetCurvedFromLine</LinePlacementMethod>
+        <MaximumCharacterSpacing>0</MaximumCharacterSpacing>
+        <MaximumLabelOverrun>36</MaximumLabelOverrun>
+        <MaximumLabelOverrunUnit>Point</MaximumLabelOverrunUnit>
+        <MaximumWordSpacing>0</MaximumWordSpacing>
+        <MinimumEndOfStreetClearance>0</MinimumEndOfStreetClearance>
+        <MinimumFeatureSizeUnit>Map</MinimumFeatureSizeUnit>
+        <MinimumRepetitionInterval>0</MinimumRepetitionInterval>
+        <MinimumSizeForLabeling>0</MinimumSizeForLabeling>
+        <MultiPartOption>OneLabelPerPart</MultiPartOption>
+        <NeverRemoveLabel>false</NeverRemoveLabel>
+        <OffsetAlongLineProperties xsi:type="typens:CIMMaplexOffsetAlongLineProperties">
+          <PlacementMethod>BestPositionAlongLine</PlacementMethod>
+          <LabelAnchorPoint>CenterOfLabel</LabelAnchorPoint>
+          <Distance>0</Distance>
+          <Tolerance>0</Tolerance>
+          <DistanceUnit>Percentage</DistanceUnit>
+          <UseLineDirection>true</UseLineDirection>
+        </OffsetAlongLineProperties>
+        <PointExternalZonePriorities xsi:type="typens:CIMMaplexExternalZonePriorities">
+          <AboveLeft>4</AboveLeft>
+          <AboveCenter>2</AboveCenter>
+          <AboveRight>1</AboveRight>
+          <CenterRight>3</CenterRight>
+          <BelowRight>5</BelowRight>
+          <BelowCenter>7</BelowCenter>
+          <BelowLeft>8</BelowLeft>
+          <CenterLeft>6</CenterLeft>
+        </PointExternalZonePriorities>
+        <PointPlacementMethod>AroundPoint</PointPlacementMethod>
+        <PolygonAnchorPointType>GeometricCenter</PolygonAnchorPointType>
+        <PolygonBoundaryWeight>200</PolygonBoundaryWeight>
+        <PolygonExternalZones xsi:type="typens:CIMMaplexExternalZonePriorities">
+          <AboveLeft>4</AboveLeft>
+          <AboveCenter>2</AboveCenter>
+          <AboveRight>1</AboveRight>
+          <CenterRight>3</CenterRight>
+          <BelowRight>5</BelowRight>
+          <BelowCenter>7</BelowCenter>
+          <BelowLeft>8</BelowLeft>
+          <CenterLeft>6</CenterLeft>
+        </PolygonExternalZones>
+        <PolygonFeatureType>General</PolygonFeatureType>
+        <PolygonInternalZones xsi:type="typens:CIMMaplexInternalZonePriorities">
+          <AboveLeft>0</AboveLeft>
+          <AboveCenter>0</AboveCenter>
+          <AboveRight>0</AboveRight>
+          <CenterRight>0</CenterRight>
+          <BelowRight>0</BelowRight>
+          <BelowCenter>0</BelowCenter>
+          <BelowLeft>0</BelowLeft>
+          <CenterLeft>0</CenterLeft>
+          <Center>1</Center>
+        </PolygonInternalZones>
+        <PolygonPlacementMethod>CurvedInPolygon</PolygonPlacementMethod>
+        <PreferHorizontalPlacement>false</PreferHorizontalPlacement>
+        <PreferLabelNearJunction>false</PreferLabelNearJunction>
+        <PreferLabelNearJunctionClearance>0</PreferLabelNearJunctionClearance>
+        <PreferLabelNearMapBorder>false</PreferLabelNearMapBorder>
+        <PreferLabelNearMapBorderClearance>0</PreferLabelNearMapBorderClearance>
+        <PreferredEndOfStreetClearance>0</PreferredEndOfStreetClearance>
+        <PrimaryOffset>1</PrimaryOffset>
+        <PrimaryOffsetUnit>Point</PrimaryOffsetUnit>
+        <RemoveExtraLineBreaks>false</RemoveExtraLineBreaks>
+        <RemoveExtraWhiteSpace>true</RemoveExtraWhiteSpace>
+        <RepeatLabel>false</RepeatLabel>
+        <RepetitionIntervalUnit>Map</RepetitionIntervalUnit>
+        <RotationProperties xsi:type="typens:CIMMaplexRotationProperties">
+          <Enable>false</Enable>
+          <RotationType>Arithmetic</RotationType>
+          <PerpendicularToAngle>false</PerpendicularToAngle>
+          <AlignLabelToAngle>false</AlignLabelToAngle>
+          <AlignmentType>Straight</AlignmentType>
+          <AdditionalAngle>0</AdditionalAngle>
+        </RotationProperties>
+        <SecondaryOffset>100</SecondaryOffset>
+        <SecondaryOffsetMaximum>0</SecondaryOffsetMaximum>
+        <SecondaryOffsetMinimum>0</SecondaryOffsetMinimum>
+        <SpreadCharacters>false</SpreadCharacters>
+        <SpreadWords>false</SpreadWords>
+        <StrategyPriorities xsi:type="typens:CIMMaplexStrategyPriorities">
+          <Stacking>1</Stacking>
+          <Overrun>2</Overrun>
+          <FontCompression>3</FontCompression>
+          <FontReduction>4</FontReduction>
+          <Abbreviation>5</Abbreviation>
+        </StrategyPriorities>
+        <ThinDuplicateLabels>false</ThinDuplicateLabels>
+        <ThinningDistance>0</ThinningDistance>
+        <ThinningDistanceUnit>Map</ThinningDistanceUnit>
+        <TruncationMarkerCharacter>.</TruncationMarkerCharacter>
+        <TruncationMinimumLength>1</TruncationMinimumLength>
+        <TruncationPreferredCharacters>aeiou</TruncationPreferredCharacters>
+        <UseExactSymbolOutline>false</UseExactSymbolOutline>
+      </MaplexLabelPlacementProperties>
+      <MaximumScale>0</MaximumScale>
+      <MinimumScale>0</MinimumScale>
+      <Name>Default</Name>
+      <Priority>3</Priority>
+      <StandardLabelPlacementProperties xsi:type="typens:CIMStandardLabelPlacementProperties">
+        <FeatureType>Line</FeatureType>
+        <FeatureWeight>None</FeatureWeight>
+        <LabelWeight>High</LabelWeight>
+        <NumLabelsOption>OneLabelPerPart</NumLabelsOption>
+        <LineLabelPosition xsi:type="typens:CIMStandardLineLabelPosition">
+          <ProduceCurvedLabels>false</ProduceCurvedLabels>
+          <Above>true</Above>
+          <Below>false</Below>
+          <OnTop>false</OnTop>
+          <Left>false</Left>
+          <Right>false</Right>
+          <InLine>true</InLine>
+          <AtStart>false</AtStart>
+          <AtEnd>false</AtEnd>
+          <Parallel>true</Parallel>
+          <Perpendicular>false</Perpendicular>
+          <Horizontal>false</Horizontal>
+          <Offset>0</Offset>
+        </LineLabelPosition>
+        <LineLabelPriorities xsi:type="typens:CIMStandardLineLabelPriorities">
+          <AboveBefore>0</AboveBefore>
+          <AboveStart>3</AboveStart>
+          <AboveAlong>3</AboveAlong>
+          <AboveEnd>3</AboveEnd>
+          <AboveAfter>0</AboveAfter>
+          <CenterBefore>0</CenterBefore>
+          <CenterStart>3</CenterStart>
+          <CenterAlong>3</CenterAlong>
+          <CenterEnd>3</CenterEnd>
+          <CenterAfter>0</CenterAfter>
+          <BelowBefore>0</BelowBefore>
+          <BelowStart>3</BelowStart>
+          <BelowAlong>3</BelowAlong>
+          <BelowEnd>3</BelowEnd>
+          <BelowAfter>0</BelowAfter>
+        </LineLabelPriorities>
+        <PointPlacementMethod>AroundPoint</PointPlacementMethod>
+        <PointPlacementPriorities xsi:type="typens:CIMStandardPointPlacementPriorities">
+          <AboveLeft>2</AboveLeft>
+          <AboveCenter>2</AboveCenter>
+          <AboveRight>1</AboveRight>
+          <CenterLeft>3</CenterLeft>
+          <CenterRight>2</CenterRight>
+          <BelowLeft>3</BelowLeft>
+          <BelowCenter>3</BelowCenter>
+          <BelowRight>2</BelowRight>
+        </PointPlacementPriorities>
+        <PointPlacementAngles xsi:type="typens:ArrayOfDouble" />
+        <BufferRatio>0</BufferRatio>
+        <LineOffset>0</LineOffset>
+        <MaxDistanceFromTarget>0</MaxDistanceFromTarget>
+        <RotationType>Arithmetic</RotationType>
+        <RotationField />
+        <PerpendicularToAngle>false</PerpendicularToAngle>
+        <PolygonPlacementMethod>AlwaysHorizontal</PolygonPlacementMethod>
+        <PlaceOnlyInsidePolygon>false</PlaceOnlyInsidePolygon>
+        <AllowOverlappingLabels>false</AllowOverlappingLabels>
+      </StandardLabelPlacementProperties>
+      <TextSymbol xsi:type="typens:CIMSymbolReference">
+        <StylePath />
+        <Symbol xsi:type="typens:CIMTextSymbol">
+          <Angle>0</Angle>
+          <AngleX>0</AngleX>
+          <AngleY>0</AngleY>
+          <BlockProgression>TTB</BlockProgression>
+          <CompatibilityMode>true</CompatibilityMode>
+          <Depth3D>1</Depth3D>
+          <DrawGlyphsAsGeometry>false</DrawGlyphsAsGeometry>
+          <DrawSoftHyphen>true</DrawSoftHyphen>
+          <ExtrapolateBaselines>true</ExtrapolateBaselines>
+          <FlipAngle>90</FlipAngle>
+          <FontEffects>Normal</FontEffects>
+          <FontEncoding>Unicode</FontEncoding>
+          <FontFamilyName>Arial</FontFamilyName>
+          <FontStyleName>Regular</FontStyleName>
+          <FontType>Unspecified</FontType>
+          <GlyphRotation>0</GlyphRotation>
+          <HaloSize>1</HaloSize>
+          <Height>8</Height>
+          <Hinting>Default</Hinting>
+          <HorizontalAlignment>Center</HorizontalAlignment>
+          <IndentAfter>0</IndentAfter>
+          <IndentBefore>0</IndentBefore>
+          <IndentFirstLine>0</IndentFirstLine>
+          <Kerning>true</Kerning>
+          <LetterSpacing>0</LetterSpacing>
+          <LetterWidth>100</LetterWidth>
+          <Ligatures>true</Ligatures>
+          <LineGap>0</LineGap>
+          <LineGapType>ExtraLeading</LineGapType>
+          <OffsetX>0</OffsetX>
+          <OffsetY>0</OffsetY>
+          <OffsetZ>0</OffsetZ>
+          <ShadowColor xsi:type="typens:CIMRGBColor">
+            <Values xsi:type="typens:ArrayOfDouble">
+              <Double>0</Double>
+              <Double>0</Double>
+              <Double>0</Double>
+              <Double>100</Double>
+            </Values>
+          </ShadowColor>
+          <ShadowOffsetX>0</ShadowOffsetX>
+          <ShadowOffsetY>0</ShadowOffsetY>
+          <SmallCaps>false</SmallCaps>
+          <Strikethrough>false</Strikethrough>
+          <Symbol xsi:type="typens:CIMPolygonSymbol">
+            <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+              <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                <Enable>true</Enable>
+                <Name />
+                <ColorLocked>false</ColorLocked>
+                <PrimitiveName />
+                <Color xsi:type="typens:CIMRGBColor">
+                  <Values xsi:type="typens:ArrayOfDouble">
+                    <Double>0</Double>
+                    <Double>0</Double>
+                    <Double>0</Double>
+                    <Double>100</Double>
+                  </Values>
+                </Color>
+              </CIMSymbolLayer>
+            </SymbolLayers>
+            <ThumbnailURI />
+            <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+          </Symbol>
+          <TextCase>Normal</TextCase>
+          <TextDirection>LTR</TextDirection>
+          <Underline>false</Underline>
+          <VerticalAlignment>Bottom</VerticalAlignment>
+          <VerticalGlyphOrientation>Right</VerticalGlyphOrientation>
+          <WordSpacing>100</WordSpacing>
+          <BillboardMode3D>FaceNearPlane</BillboardMode3D>
+        </Symbol>
+        <SymbolName>Symbol_71</SymbolName>
+        <MinScale>0</MinScale>
+        <MaxScale>0</MaxScale>
+        <MinDistance>0</MinDistance>
+        <MaxDistance>0</MaxDistance>
+      </TextSymbol>
+      <UseCodedValue>true</UseCodedValue>
+      <WhereClause />
+      <Visibility>true</Visibility>
+      <ID>-1</ID>
+    </CIMLabelClass>
+  </LabelClasses>
+  <LabelVisibility>false</LabelVisibility>
+  <Renderer xsi:type="typens:CIMUniqueValueRenderer">
+    <ColorRamp xsi:type="typens:CIMRandomHSVColorRamp">
+      <ColorSpace xsi:type="typens:CIMICCColorSpace">
+        <URL>Default RGB</URL>
+      </ColorSpace>
+      <MinH>0</MinH>
+      <MaxH>360</MaxH>
+      <MinS>60</MinS>
+      <MaxS>80</MaxS>
+      <MinV>60</MinV>
+      <MaxV>80</MaxV>
+      <MinAlpha>100</MinAlpha>
+      <MaxAlpha>100</MaxAlpha>
+      <Seed>0</Seed>
+    </ColorRamp>
+    <DefaultLabel>&lt;all other values&gt;</DefaultLabel>
+    <DefaultSymbol xsi:type="typens:CIMSymbolReference">
+      <StylePath />
+      <Symbol xsi:type="typens:CIMPolygonSymbol">
+        <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+          <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+            <Enable>true</Enable>
+            <Name />
+            <ColorLocked>false</ColorLocked>
+            <CapStyle>Round</CapStyle>
+            <JoinStyle>Round</JoinStyle>
+            <LineStyle3D>Strip</LineStyle3D>
+            <MiterLimit>10</MiterLimit>
+            <PrimitiveName />
+            <Width>0.4</Width>
+            <CloseCaps3D>false</CloseCaps3D>
+            <Color xsi:type="typens:CIMRGBColor">
+              <Values xsi:type="typens:ArrayOfDouble">
+                <Double>110</Double>
+                <Double>110</Double>
+                <Double>110</Double>
+                <Double>100</Double>
+              </Values>
+            </Color>
+          </CIMSymbolLayer>
+        </SymbolLayers>
+        <ThumbnailURI />
+        <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+      </Symbol>
+      <SymbolName>Symbol_70</SymbolName>
+      <MinScale>0</MinScale>
+      <MaxScale>0</MaxScale>
+      <MinDistance>0</MinDistance>
+      <MaxDistance>0</MaxDistance>
+    </DefaultSymbol>
+    <Fields xsi:type="typens:ArrayOfString">
+      <String>Neighood</String>
+    </Fields>
+    <Groups xsi:type="typens:ArrayOfCIMUniqueValueGroup">
+      <CIMUniqueValueGroup xsi:type="typens:CIMUniqueValueGroup">
+        <Classes xsi:type="typens:ArrayOfCIMUniqueValueClass">
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>&lt;Null&gt;</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_57</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>&lt;Null&gt;</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Brownlee Woods</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>176</Double>
+                        <Double>71</Double>
+                        <Double>77</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_58</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Brownlee Woods</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Crandall Park</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>233</Double>
+                        <Double>60</Double>
+                        <Double>63</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_59</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Crandall Park</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Garden District</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>253</Double>
+                        <Double>73</Double>
+                        <Double>77</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_60</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Garden District</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Greater McGuffey Corridor</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>140</Double>
+                        <Double>74</Double>
+                        <Double>67</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_61</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Greater McGuffey Corridor</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Lincoln Knolls</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>2</Double>
+                        <Double>79</Double>
+                        <Double>77</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_62</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Lincoln Knolls</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>MLK Elementary</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>327</Double>
+                        <Double>75</Double>
+                        <Double>66</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_63</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>MLK Elementary</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Pleasant Grove</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>85</Double>
+                        <Double>76</Double>
+                        <Double>78</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_64</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Pleasant Grove</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Rocky Ridge</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>114</Double>
+                        <Double>77</Double>
+                        <Double>74</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_65</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Rocky Ridge</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>South Ave Corridor</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>204</Double>
+                        <Double>62</Double>
+                        <Double>78</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_66</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>South Ave Corridor</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Taft Elementary</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>350</Double>
+                        <Double>73</Double>
+                        <Double>60</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_67</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Taft Elementary</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Upper West Side</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>51</Double>
+                        <Double>75</Double>
+                        <Double>76</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_68</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Upper West Side</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+          <CIMUniqueValueClass xsi:type="typens:CIMUniqueValueClass">
+            <Description />
+            <Editable>false</Editable>
+            <Label>Wick Park</Label>
+            <Patch>Default</Patch>
+            <Symbol xsi:type="typens:CIMSymbolReference">
+              <StylePath />
+              <Symbol xsi:type="typens:CIMPolygonSymbol">
+                <SymbolLayers xsi:type="typens:ArrayOfCIMSymbolLayer">
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidStroke">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <CapStyle>Round</CapStyle>
+                    <JoinStyle>Round</JoinStyle>
+                    <LineStyle3D>Strip</LineStyle3D>
+                    <MiterLimit>10</MiterLimit>
+                    <PrimitiveName />
+                    <Width>0.4</Width>
+                    <CloseCaps3D>false</CloseCaps3D>
+                    <Color xsi:type="typens:CIMRGBColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>110</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                  <CIMSymbolLayer xsi:type="typens:CIMSolidFill">
+                    <Enable>true</Enable>
+                    <Name />
+                    <ColorLocked>false</ColorLocked>
+                    <PrimitiveName />
+                    <Color xsi:type="typens:CIMHSVColor">
+                      <Values xsi:type="typens:ArrayOfDouble">
+                        <Double>294</Double>
+                        <Double>72</Double>
+                        <Double>74</Double>
+                        <Double>100</Double>
+                      </Values>
+                    </Color>
+                  </CIMSymbolLayer>
+                </SymbolLayers>
+                <ThumbnailURI />
+                <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+              </Symbol>
+              <SymbolName>Symbol_69</SymbolName>
+              <MinScale>0</MinScale>
+              <MaxScale>0</MaxScale>
+              <MinDistance>0</MinDistance>
+              <MaxDistance>0</MaxDistance>
+            </Symbol>
+            <Values xsi:type="typens:ArrayOfCIMUniqueValue">
+              <CIMUniqueValue xsi:type="typens:CIMUniqueValue">
+                <FieldValues xsi:type="typens:ArrayOfString">
+                  <String>Wick Park</String>
+                </FieldValues>
+              </CIMUniqueValue>
+            </Values>
+            <Visible>true</Visible>
+          </CIMUniqueValueClass>
+        </Classes>
+        <Heading>Neighood</Heading>
+      </CIMUniqueValueGroup>
+    </Groups>
+    <UseDefaultSymbol>true</UseDefaultSymbol>
+  </Renderer>
+  <ScaleSymbols>true</ScaleSymbols>
+  <Snappable>true</Snappable>
+  <UseRealWorldSymbolSizes>false</UseRealWorldSymbolSizes>
+</CIMFeatureLayer>

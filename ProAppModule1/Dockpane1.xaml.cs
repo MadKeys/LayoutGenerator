@@ -42,15 +42,13 @@ namespace ProAppModule1
         
         private async void cityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DispatcherOperation<Task> dispatcherOperation = 
-                Dispatcher.InvokeAsync(() => _viewModel.ChangeCitySelection(cityComboBox.SelectedItem as string));
-            Task task = await dispatcherOperation;
-            await task;
+            await await Dispatcher.InvokeAsync(() => _viewModel.ChangeCitySelection(cityComboBox.SelectedItem as string));
         }
 
         private async void neighborhoodComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            await Dispatcher.InvokeAsync(() => _viewModel.ChangeNeighborhoodSelection(cityComboBox.SelectedItem as string, neighborhoodComboBox.SelectedItem as string));
+            Task dispatcherTask = await Dispatcher.InvokeAsync(() => _viewModel.ChangeNeighborhoodSelection(e));
+            await dispatcherTask;
         }
 
         private async void cityComboBox_Initialized(object sender, EventArgs e)

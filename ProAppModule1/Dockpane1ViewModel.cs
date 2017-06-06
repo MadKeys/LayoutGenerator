@@ -15,6 +15,9 @@ using ArcGIS.Core.Data;
 using ArcGIS.Core.Geometry;
 using ArcGIS.Desktop.Layouts;
 using System.Collections.Concurrent;
+using System.Xml;
+using ArcGIS.Core.CIM;
+using System.Windows.Controls;
 
 namespace ProAppModule1
 {
@@ -398,7 +401,6 @@ namespace ProAppModule1
             NeighborhoodNames = neighborhoodNamesList;
         }
 
-
         /// <summary>
         ///     Updates the layout's map frames to show the maps associated with the newly selected city.
         ///     TODO: Update text elements of the layout
@@ -407,21 +409,21 @@ namespace ProAppModule1
         ///     The name of the selected city
         /// </param>
         /// <returns></returns>
-        public async Task UpdateLayoutCityElementsAsync(string cityName)
+        public async Task UpdateLayoutMapFrames(string cityName)
         {
-            Task<Layout> getLayoutTask = GetLayoutAsync(_layoutName);
-            string insetMpiName = cityName + " Inset", neighborhoodMpiName = cityName + " Neighborhoods";
-            Task<Map>[] getMapTasks = { GetMapAsync(insetMpiName), GetMapAsync(neighborhoodMpiName) };
-            string insetFrameName = "Inset Map Frame", neighborhoodFrameName = "Neighborhood Map Frame";
-            Layout layout = await getLayoutTask.ConfigureAwait(false);
-            MapFrame[] mapFrames = {layout.FindElement(insetFrameName) as MapFrame,
-                layout.FindElement(neighborhoodFrameName) as MapFrame };
-            Map[] maps = await Task.WhenAll(getMapTasks).ConfigureAwait(false);
-            Task[] setMapTasks = new Task[2];
-            int i = 0;
-            setMapTasks[i] = QueuedTask.Run(() => mapFrames[i].SetMap(maps[i]));
-            i += 1;
-            setMapTasks[i] = QueuedTask.Run(() => mapFrames[i].SetMap(maps[i]));
+            string neighborhoodMpiName = cityName + " Neighborhoods";
+            string insetMpiName = cityName + " Inset";
+
+            var stuff = new Dictionary<string, Task<MapFrame>>();
+            stuff.Add(insetMpiName, GetInsetMapFrameAsync());
+            stuff.Add(neighborhoodMpiName, GetNeighborhoodMapFrameAsync());
+
+            var setMapTasks = new List<Task>();
+            foreach(KeyValuePair<string, Task<MapFrame>> pair in stuff)
+            {
+                setMapTasks.Add(QueuedTask.Run(
+                    async () => (await pair.Value).SetMap(await GetMapAsync(pair.Key))));
+            }
             await Task.WhenAll(setMapTasks).ConfigureAwait(false);
         }
 
@@ -436,25 +438,113 @@ namespace ProAppModule1
         /// </returns>
         public async Task ChangeCitySelection(string cityName)
         {
-            CityZoomCompleted = "Focusing...";
             await UpdateNeighborhoodNamesAsync(cityName).ConfigureAwait(false);
-            await UpdateLayoutCityElementsAsync(cityName).ConfigureAwait(false);
-            await ZoomToCity(cityName).ConfigureAwait(false);
+            await UpdateLayoutMapFrames(cityName).ConfigureAwait(false);
+
+            CityZoomCompleted = "Focusing...";
+            QueryFilter cityQueryFilter = GetCityQueryFilter();
+            var zoomToExtentTasks = new List<Task<bool>>();
+            zoomToExtentTasks.Add(ChangeExtent(await GetInsetMapFrameAsync(), cityQueryFilter));
+            zoomToExtentTasks.Add(ChangeExtent(await GetNeighborhoodMapFrameAsync(), cityQueryFilter));
+            bool[] statuses = await Task.WhenAll(zoomToExtentTasks);
+            string completed = "";
+            foreach(bool status in statuses)
+            {
+                completed += status.ToString() + " ,";
+            }
         }
 
-        public async Task ChangeNeighborhoodSelection(string cityName, string neighborhoodName)
+        public async Task ChangeNeighborhoodSelection(SelectionChangedEventArgs eventArgs)
         {
+            var deselectedNeighborhoods = new List<string>();
+            var selectedNeighborhoods = new List<string>();
+
+            foreach(string item in eventArgs.RemovedItems)
+            {
+                deselectedNeighborhoods.Add(item);
+            }
+
+            foreach(string item in eventArgs.AddedItems)
+            {
+                selectedNeighborhoods.Add(item);
+            }
+
+            MapFrame neighborhoodMapFrame = await GetNeighborhoodMapFrameAsync();
+            MapFrame insetMapFrame = await GetInsetMapFrameAsync();
+
+            FeatureLayer neighborhoodFeatureLayer = GetFeatureLayer(neighborhoodMapFrame);
+            FeatureLayer insetFeatureLayer = GetFeatureLayer(insetMapFrame);
+
+            List<FeatureLayer> featureLayers = new List<FeatureLayer>();
+            featureLayers.Add(neighborhoodFeatureLayer);
+            featureLayers.Add(insetFeatureLayer);
+
+            List<Task> updateSymbologyTasks = new List<Task>();
+            foreach (FeatureLayer featureLayer in featureLayers)
+            {
+                if(deselectedNeighborhoods != null)
+                {
+                    foreach (string deselectedNeighborhood in deselectedNeighborhoods)
+                    {
+                        updateSymbologyTasks.Add(UpdateNeighborhoodSymbology(featureLayer, deselectedNeighborhood, false));
+                    }
+                }
+                if(selectedNeighborhoods != null)
+                {
+                    foreach (string selectedNeighborhood in selectedNeighborhoods)
+                    {
+                        updateSymbologyTasks.Add(UpdateNeighborhoodSymbology(featureLayer, selectedNeighborhood, true));
+                    }
+                }
+            }
+            await Task.WhenAll(updateSymbologyTasks);
+
             NeighborhoodZoomCompleted = "Focusing...";
-            await ZoomToNeighborhood(cityName, neighborhoodName).ConfigureAwait(false);
+            if(selectedNeighborhoods != null)
+            {
+                NeighborhoodZoomCompleted = 
+                    (await ChangeExtent(neighborhoodMapFrame, GetNeighborhoodQueryFilter(selectedNeighborhoods.FirstOrDefault()))).ToString();
+            }
         }
 
         #endregion
 
         #region Get Model Data
 
+        private LayoutProjectItem GetLayoutProjectItem()
+        {
+            return Project.Current.GetItems<LayoutProjectItem>().FirstOrDefault(
+                (item) => item.Name.Equals(_layoutName));
+        }
+
+        private async Task<Layout> GetLayoutAsync()
+        {
+            return await QueuedTask.Run(() => GetLayoutProjectItem().GetLayout());
+        }
+
+        private async Task<MapFrame> GetInsetMapFrameAsync()
+        {
+            return (await GetLayoutAsync()).FindElement("Inset Map Frame") as MapFrame;
+        }
+
+        private async Task<MapFrame> GetNeighborhoodMapFrameAsync()
+        {
+            return (await GetLayoutAsync()).FindElement("Neighborhood Map Frame") as MapFrame;
+        }
+
+        private FeatureLayer GetFeatureLayer(MapFrame mapFrame)
+        {
+            return GetLayer(_layerName, mapFrame.Map) as FeatureLayer;
+        }
+
+        private Layer GetLayer(string layerName, Map map)
+        {
+            return map.Layers.FirstOrDefault((x) => x.Name.Equals(layerName));
+        }
+
         private async Task<FeatureClass> GetFeatureClassAsync(Map map)
         {
-            Layer layer = map.Layers.FirstOrDefault(i => i.Name.Equals("OH_Blocks"));
+            Layer layer = GetLayer(_layerName, map);
             var fLayer = layer as FeatureLayer;
             return await QueuedTask.Run(() => fLayer.GetFeatureClass()).ConfigureAwait(false);
         }
@@ -559,65 +649,107 @@ namespace ProAppModule1
 
         private async Task<MapFrame> GetMapFrameAsync(string layoutElementName)
         {
-            Task<Layout> layoutTask = GetLayoutAsync("Neighborhood_Stabilization");
+            Task<Layout> layoutTask = GetLayoutAsync(_layoutName);
             var mapFrame = (await layoutTask.ConfigureAwait(false)).FindElement(layoutElementName) as MapFrame;
             return mapFrame;
+        }
+
+        private QueryFilter GetNeighborhoodQueryFilter(string neighborhoodName)
+        {
+            QueryFilter queryFilter = new QueryFilter()
+            {
+                WhereClause = "Neighood ='" + neighborhoodName + "'"
+            };
+            return queryFilter;
+        }
+
+        private QueryFilter GetCityQueryFilter()
+        {
+            QueryFilter queryFilter = new QueryFilter()
+            {
+                WhereClause = "NOT(Neighood IS NULL)"
+            };
+            return queryFilter;
         }
 
         #endregion
 
         #region Zoom to Features
 
-        public async Task ZoomToCity(string cityName)
-        {
-            string layoutElementName = "Inset Map Frame";
-            QueryFilter queryFilter = new QueryFilter()
-            {
-                WhereClause = "NOT(Neighood IS NULL)"
-            };
-            CityZoomCompleted = (await ZoomTo(queryFilter, layoutElementName)).ToString();
-        }
-
-        public async Task ZoomToNeighborhood(string cityName, string neighborhoodName)
-        {
-            string layoutElementName = "Neighborhood Map Frame";
-            QueryFilter queryFilter = new QueryFilter()
-            {
-                WhereClause = "Neighood ='" + neighborhoodName + "'"
-            };
-            NeighborhoodZoomCompleted = (await ZoomTo(queryFilter, layoutElementName)).ToString();
-        }
-
-        private async Task<bool> ZoomTo(QueryFilter queryFilter, string layoutElementName)
-        {
-            Task<MapFrame> mapFrameTask = GetMapFrameAsync(layoutElementName);
-            Task<bool> zoomToExtentTask = ZoomToExtent(queryFilter, (await mapFrameTask.ConfigureAwait(false)));
-            bool navigationCompleted = await zoomToExtentTask.ConfigureAwait(false);
-            return navigationCompleted;
-        }
-
-        private async Task<bool> ZoomToExtent(QueryFilter queryFilter, MapFrame mapFrame)
+        /// <summary>
+        /// Zooms the MapFrame to the extent of the specified features
+        /// </summary>
+        /// <param name="mapFrame">The MapFrame whose extent will be changed</param>
+        /// <param name="queryFilter">The features whose extent used</param>
+        private async Task<bool> ChangeExtent(MapFrame mapFrame, QueryFilter queryFilter=null)
         {
             Task<RowCursor> rowCursorTask = GetRowCursorAsync(mapFrame.Map.Name, queryFilter);
             Task<Envelope> extentTask = GetEnvelopeAsync(await rowCursorTask.ConfigureAwait(false));
-            var mapView = mapFrame.MapView;
-            Envelope envelope = await extentTask;
-
-            
-            /*Task<Dictionary<BasicFeatureLayer, List<long>>> selectFeaturesTask = 
-                QueuedTask.Run(() => mapView.SelectFeatures(envelope));*/
-            Task<bool> zoomToTask = QueuedTask.Run(() => mapView.ZoomToAsync(envelope));
-            bool navigationCompleted = await zoomToTask.ConfigureAwait(false);
-            return navigationCompleted;
+            return await await QueuedTask.Run(async () => mapFrame.MapView.ZoomToAsync(await extentTask));
         }
 
         #endregion
+
+        #region Update Symbology
+
+        /// <summary>
+        ///     Highlights a selected neighborhood or greys a deselected one
+        /// </summary>
+        /// <param name="featureLayer"></param>
+        ///     The layer containing the feature whose symbology is to be updated
+        /// <param name="neighborhood"></param>
+        ///     Must be equal to one of the labels of featureLayer's renderer's uniqueValueGroup's classes
+        /// <param name="selection"></param>
+        ///     If true, highlights the neighborhood. Otherwise, greys it
+        /// <returns></returns>
+        private async Task UpdateNeighborhoodSymbology(FeatureLayer featureLayer, string neighborhood, bool selection)
+        {
+            var renderer = await QueuedTask.Run(() => featureLayer.GetRenderer());
+
+            var uniqueValueRenderer = renderer as CIMUniqueValueRenderer;
+            CIMUniqueValueGroup uniqueValueGroup = uniqueValueRenderer.Groups.FirstOrDefault();
+            CIMUniqueValueClass neighborhoodClass = null;
+            int classIndex = -1;
+            for(int i = 0; i < uniqueValueGroup.Classes.Count(); i++)
+            {
+                if (uniqueValueGroup.Classes[i].Label.Equals(neighborhood))
+                {
+                    neighborhoodClass = uniqueValueGroup.Classes[i];
+                    classIndex = i;
+                }
+            }
+            var polygonSymbol = neighborhoodClass.Symbol.Symbol as CIMPolygonSymbol;
+
+            /* var solidFillSymbolLayer = polygonSymbol.SymbolLayers.FirstOrDefault(
+                (x) => x.GetType().Equals(typeof(CIMSolidFill))) as CIMSolidFill; */
+
+            CIMColor color;
+
+            if (selection)
+            {
+                var fixedColorRamp = uniqueValueRenderer.ColorRamp as CIMFixedColorRamp;
+                color = fixedColorRamp.Colors[classIndex - 1];
+            }
+            else // deselection
+            {
+                color = CIMColor.CreateGrayColor(50);
+            }
+
+            SymbolFactory.SetColor(polygonSymbol, color);
+
+            /* solidFillSymbolLayer.ColorLocked = false;
+            solidFillSymbolLayer.Color = color; */
+
+            await QueuedTask.Run(() => featureLayer.SetRenderer(renderer));
+        }
+
+        #endregion 
     }
 
     /// <summary>
     /// Button implementation to show the DockPane.
     /// </summary>
-    internal class Dockpane1_ShowButton : Button
+    internal class Dockpane1_ShowButton : ArcGIS.Desktop.Framework.Contracts.Button
     {
         protected override void OnClick()
         {
