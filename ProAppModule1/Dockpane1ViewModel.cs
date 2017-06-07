@@ -393,20 +393,24 @@ namespace ProAppModule1
         public async Task UpdateNeighborhoodNamesAsync(string cityName)
         {
             string mpiName = cityName + " Neighborhoods";
-            List<string> neighborhoodNamesList;
+            List<string> neighborhoodNamesList = new List<string>();
 
             Map map = await GetMapAsync(mpiName);
-            if(GetLayer(_layerName, map) != null)
+
+            if(map != null)
             {
-                RowCursor rowCursor = await GetRowCursorAsync(map).ConfigureAwait(false);
-                int neighoodIndex = await QueuedTask.Run(() => rowCursor.FindField("Neighood")).ConfigureAwait(false);
-                neighborhoodNamesList = await GetRowValuesAsync(rowCursor, neighoodIndex).ConfigureAwait(false);
+                if (GetLayer(_layerName, map) != null)
+                {
+                    RowCursor rowCursor = await GetRowCursorAsync(map).ConfigureAwait(false);
+                    int neighoodIndex = await QueuedTask.Run(() => rowCursor.FindField("Neighood")).ConfigureAwait(false);
+                    neighborhoodNamesList = await GetRowValuesAsync(rowCursor, neighoodIndex).ConfigureAwait(false);
+                }
+                else
+                {
+                    neighborhoodNamesList = await GetNeighborhoodLayerNamesAsync(map);
+                }
             }
-            else
-            {
-                neighborhoodNamesList = await GetNeighborhoodLayerNamesAsync(map);
-            }
-            
+
             neighborhoodNamesList.Remove("");
             NeighborhoodNames = neighborhoodNamesList;
         }
@@ -448,20 +452,38 @@ namespace ProAppModule1
         /// </returns>
         public async Task ChangeCitySelection(string cityName)
         {
-            await UpdateNeighborhoodNamesAsync(cityName).ConfigureAwait(false);
-            await UpdateLayoutMapFrames(cityName).ConfigureAwait(false);
+            Task updateFramesTask = UpdateLayoutMapFrames(cityName);
+            Task updateNamesTask = UpdateNeighborhoodNamesAsync(cityName);
+            List<Task<MapFrame>> getNeighborhoodFrameTasks = new List<Task<MapFrame>>();
+            getNeighborhoodFrameTasks.Add(GetNeighborhoodMapFrameAsync());
+            getNeighborhoodFrameTasks.Add(GetInsetMapFrameAsync());
 
-            CityZoomCompleted = "Focusing...";
-            QueryFilter cityQueryFilter = GetCityQueryFilter();
+            // TODO: Only use GetCityQueryFilter for cities that use OH_Blocks with Neighood field
+            QueryFilter cityQueryFilter = null;
+            List<MapFrame> mapFrames = (await Task.WhenAll(getNeighborhoodFrameTasks)).ToList();
+
+            if(GetLayer(_layerName, mapFrames.FirstOrDefault().Map) != null)
+            {
+                cityQueryFilter = GetSingleLayerQueryFilter();
+            }
+            
             var zoomToExtentTasks = new List<Task<bool>>();
-            zoomToExtentTasks.Add(ChangeExtent(await GetInsetMapFrameAsync(), cityQueryFilter));
-            zoomToExtentTasks.Add(ChangeExtent(await GetNeighborhoodMapFrameAsync(), cityQueryFilter));
+            await updateFramesTask;
+            CityZoomCompleted = "Focusing...";
+            foreach(MapFrame mapFrame in mapFrames)
+            {
+                zoomToExtentTasks.Add(ChangeExtent(mapFrame, cityQueryFilter));
+            }
+
             bool[] statuses = await Task.WhenAll(zoomToExtentTasks);
             string completed = "";
             foreach(bool status in statuses)
             {
                 completed += status.ToString() + " ,";
             }
+            CityZoomCompleted = completed;
+
+            await updateNamesTask;
         }
 
         public async Task ChangeNeighborhoodSelection(SelectionChangedEventArgs eventArgs)
@@ -479,41 +501,53 @@ namespace ProAppModule1
                 selectedNeighborhoods.Add(item);
             }
 
-            MapFrame neighborhoodMapFrame = await GetNeighborhoodMapFrameAsync();
-            MapFrame insetMapFrame = await GetInsetMapFrameAsync();
-
-            FeatureLayer neighborhoodFeatureLayer = GetFeatureLayer(neighborhoodMapFrame);
-            FeatureLayer insetFeatureLayer = GetFeatureLayer(insetMapFrame);
-
-            List<FeatureLayer> featureLayers = new List<FeatureLayer>();
-            featureLayers.Add(neighborhoodFeatureLayer);
-            featureLayers.Add(insetFeatureLayer);
+            Task<MapFrame> getNeighborhoodMapFrameTask = GetNeighborhoodMapFrameAsync();
+            var mapFrameTasks = new List<Task<MapFrame>>();
+            mapFrameTasks.Add(getNeighborhoodMapFrameTask);
+            mapFrameTasks.Add(GetInsetMapFrameAsync());
+            List<MapFrame> mapFrames = (await Task.WhenAll(mapFrameTasks)).ToList();
 
             List<Task> updateSymbologyTasks = new List<Task>();
-            foreach (FeatureLayer featureLayer in featureLayers)
+            foreach (MapFrame mapFrame in mapFrames)
             {
-                if(deselectedNeighborhoods != null)
+                FeatureLayer featureLayer = null;
+                if (GetLayer(_layerName, mapFrame.Map) != null)
+                {
+                    featureLayer = GetFeatureLayer(mapFrame);
+                }
+                if (deselectedNeighborhoods != null)
                 {
                     foreach (string deselectedNeighborhood in deselectedNeighborhoods)
                     {
+                        if(featureLayer == null)
+                        {
+                            featureLayer = GetFeatureLayer(mapFrame, deselectedNeighborhood);
+                        }
                         updateSymbologyTasks.Add(UpdateNeighborhoodSymbology(featureLayer, deselectedNeighborhood, false));
                     }
                 }
-                if(selectedNeighborhoods != null)
+                if (selectedNeighborhoods != null)
                 {
                     foreach (string selectedNeighborhood in selectedNeighborhoods)
                     {
+                        if(featureLayer == null)
+                        {
+                            featureLayer = GetFeatureLayer(mapFrame, selectedNeighborhood);
+                        }
                         updateSymbologyTasks.Add(UpdateNeighborhoodSymbology(featureLayer, selectedNeighborhood, true));
                     }
                 }
             }
+            // TODO: Rewrite to determine feature layer using the 
+
+            
             await Task.WhenAll(updateSymbologyTasks);
 
             NeighborhoodZoomCompleted = "Focusing...";
             if(selectedNeighborhoods != null)
             {
                 NeighborhoodZoomCompleted = 
-                    (await ChangeExtent(neighborhoodMapFrame, GetNeighborhoodQueryFilter(selectedNeighborhoods.FirstOrDefault()))).ToString();
+                    (await ChangeExtent(getNeighborhoodMapFrameTask.Result, GetNeighborhoodQueryFilter(selectedNeighborhoods.FirstOrDefault()))).ToString();
             }
         }
 
@@ -542,9 +576,9 @@ namespace ProAppModule1
             return (await GetLayoutAsync()).FindElement("Neighborhood Map Frame") as MapFrame;
         }
 
-        private FeatureLayer GetFeatureLayer(MapFrame mapFrame)
+        private FeatureLayer GetFeatureLayer(MapFrame mapFrame, string layerName=_layerName)
         {
-            return GetLayer(_layerName, mapFrame.Map) as FeatureLayer;
+            return GetLayer(layerName, mapFrame.Map) as FeatureLayer;
         }
 
         private Layer GetLayer(string layerName, Map map)
@@ -602,7 +636,8 @@ namespace ProAppModule1
             foreach(Layer layer in map.Layers)
             {
                 RowCursor rowCursor = await GetRowCursorAsync(map, null, layer.Name);
-                if(!names.Contains(layer.Name) && rowCursor.FindField("TRACTCE") >= 0)
+                if(!names.Contains(layer.Name) 
+                    && await QueuedTask.Run(() => rowCursor.FindField("TRACTCE") >= 0))
                 {
                     names.Add(layer.Name);
                 }
@@ -611,7 +646,7 @@ namespace ProAppModule1
             return names;
         }
 
-        private async Task<Envelope> GetEnvelopeAsync(RowCursor rowCursor)
+        private async Task<Envelope> GetEnvelopeAsync(List<RowCursor> rowCursors)
         {
             ConcurrentDictionary<string, double> extentBounds = new ConcurrentDictionary<string, double>();
             extentBounds.TryAdd("xMin", 0.0);
@@ -619,43 +654,47 @@ namespace ProAppModule1
             extentBounds.TryAdd("yMin", 0.0);
             extentBounds.TryAdd("yMax", 0.0);
 
+
             List<Task> calculateExtentTasks = new List<Task>();
-            do
+            foreach (RowCursor rowCursor in rowCursors)
             {
-                calculateExtentTasks.Add(Task.Run(async () =>
+                do
                 {
-                    double xMin, xMax, yMin, yMax;
-                    bool xMinFound = extentBounds.TryGetValue("xMin", out xMin);
-                    bool xMaxFound = extentBounds.TryGetValue("xMax", out xMax);
-                    bool yMinFound = extentBounds.TryGetValue("yMin", out yMin);
-                    bool yMaxFound = extentBounds.TryGetValue("yMax", out yMax);
-
-                    Feature feature = rowCursor.Current as Feature;
-                    if (feature != null)
+                    calculateExtentTasks.Add(Task.Run(async () =>
                     {
-                        Task<Geometry> getShapeTask = QueuedTask.Run(() => feature.GetShape());
-                        Envelope extent = (await getShapeTask.ConfigureAwait(false)).Extent;
+                        double xMin, xMax, yMin, yMax;
+                        bool xMinFound = extentBounds.TryGetValue("xMin", out xMin);
+                        bool xMaxFound = extentBounds.TryGetValue("xMax", out xMax);
+                        bool yMinFound = extentBounds.TryGetValue("yMin", out yMin);
+                        bool yMaxFound = extentBounds.TryGetValue("yMax", out yMax);
 
-                        if (xMin == 0.0 || extent.XMin < xMin)
+                        Feature feature = rowCursor.Current as Feature;
+                        if (feature != null)
                         {
-                            bool xMinUpdated = extentBounds.TryUpdate("xMin", extent.XMin, xMin);
-                        }
-                        if (xMax == 0.0 || extent.XMax > xMax)
-                        {
-                            bool xMaxUpdated = extentBounds.TryUpdate("xMax", extent.XMax, xMax);
-                        }
-                        if (yMin == 0.0 || extent.YMin < yMin)
-                        {
-                            bool yMinUpdated = extentBounds.TryUpdate("yMin", extent.YMin, yMin);
-                        }
-                        if (yMax == 0.0 || extent.YMax > yMax)
-                        {
-                            bool yMaxUpdate = extentBounds.TryUpdate("yMax", extent.YMax, yMax);
-                        }
-                    }
-                }));
-            } while (await QueuedTask.Run(() => rowCursor.MoveNext()));
+                            Task<Geometry> getShapeTask = QueuedTask.Run(() => feature.GetShape());
+                            Envelope extent = (await getShapeTask.ConfigureAwait(false)).Extent;
 
+                            if (xMin == 0.0 || extent.XMin < xMin)
+                            {
+                                bool xMinUpdated = extentBounds.TryUpdate("xMin", extent.XMin, xMin);
+                            }
+                            if (xMax == 0.0 || extent.XMax > xMax)
+                            {
+                                bool xMaxUpdated = extentBounds.TryUpdate("xMax", extent.XMax, xMax);
+                            }
+                            if (yMin == 0.0 || extent.YMin < yMin)
+                            {
+                                bool yMinUpdated = extentBounds.TryUpdate("yMin", extent.YMin, yMin);
+                            }
+                            if (yMax == 0.0 || extent.YMax > yMax)
+                            {
+                                bool yMaxUpdate = extentBounds.TryUpdate("yMax", extent.YMax, yMax);
+                            }
+                        }
+                    }));
+                } while (await QueuedTask.Run(() => rowCursor.MoveNext()));
+            }
+            
             EnvelopeBuilder eb = await QueuedTask.Run(() => new EnvelopeBuilder());
             var setEnvelopePropertyTasks = new List<Task>();
             double xMinFinal, xMaxFinal, yMinFinal, yMaxFinal;
@@ -691,7 +730,7 @@ namespace ProAppModule1
             return queryFilter;
         }
 
-        private QueryFilter GetCityQueryFilter()
+        private QueryFilter GetSingleLayerQueryFilter()
         {
             QueryFilter queryFilter = new QueryFilter()
             {
@@ -711,8 +750,25 @@ namespace ProAppModule1
         /// <param name="queryFilter">The features whose extent used</param>
         private async Task<bool> ChangeExtent(MapFrame mapFrame, QueryFilter queryFilter=null)
         {
-            Task<RowCursor> rowCursorTask = GetRowCursorAsync(mapFrame.Map, queryFilter);
-            Task<Envelope> extentTask = GetEnvelopeAsync(await rowCursorTask.ConfigureAwait(false));
+            List<RowCursor> rowCursorList = new List<RowCursor>();
+            if (GetLayer(_layerName, mapFrame.Map) != null)
+            {
+                RowCursor rowCursor = await GetRowCursorAsync(mapFrame.Map, queryFilter);
+                rowCursorList.Add(rowCursor);
+            }
+            else
+            {
+                foreach(Layer layer in mapFrame.Map.Layers)
+                {
+                    RowCursor rowCursor = await GetRowCursorAsync(mapFrame.Map, null, layer.Name);
+                    if(await QueuedTask.Run(() => rowCursor.FindField("TRACTCE") >= 0))
+                    {
+                        rowCursorList.Add(rowCursor);
+                    }
+                }
+            }
+            
+            Task<Envelope> extentTask = GetEnvelopeAsync(rowCursorList);
             return await await QueuedTask.Run(async () => mapFrame.MapView.ZoomToAsync(await extentTask));
         }
 
