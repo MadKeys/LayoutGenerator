@@ -393,10 +393,20 @@ namespace ProAppModule1
         public async Task UpdateNeighborhoodNamesAsync(string cityName)
         {
             string mpiName = cityName + " Neighborhoods";
-            RowCursor rowCursor = await GetRowCursorAsync(mpiName).ConfigureAwait(false);
-            int neighoodIndex = await QueuedTask.Run(() => rowCursor.FindField("Neighood")).ConfigureAwait(false);
-            string[] neighborhoodNames = await GetRowValuesAsync(rowCursor, neighoodIndex).ConfigureAwait(false);
-            var neighborhoodNamesList = neighborhoodNames.Distinct().ToList();
+            List<string> neighborhoodNamesList;
+
+            Map map = await GetMapAsync(mpiName);
+            if(GetLayer(_layerName, map) != null)
+            {
+                RowCursor rowCursor = await GetRowCursorAsync(map).ConfigureAwait(false);
+                int neighoodIndex = await QueuedTask.Run(() => rowCursor.FindField("Neighood")).ConfigureAwait(false);
+                neighborhoodNamesList = await GetRowValuesAsync(rowCursor, neighoodIndex).ConfigureAwait(false);
+            }
+            else
+            {
+                neighborhoodNamesList = await GetNeighborhoodLayerNamesAsync(map);
+            }
+            
             neighborhoodNamesList.Remove("");
             NeighborhoodNames = neighborhoodNamesList;
         }
@@ -542,9 +552,9 @@ namespace ProAppModule1
             return map.Layers.FirstOrDefault((x) => x.Name.Equals(layerName));
         }
 
-        private async Task<FeatureClass> GetFeatureClassAsync(Map map)
+        private async Task<FeatureClass> GetFeatureClassAsync(Map map, string layerName=_layerName)
         {
-            Layer layer = GetLayer(_layerName, map);
+            Layer layer = GetLayer(layerName, map);
             var fLayer = layer as FeatureLayer;
             return await QueuedTask.Run(() => fLayer.GetFeatureClass()).ConfigureAwait(false);
         }
@@ -561,14 +571,14 @@ namespace ProAppModule1
             return await QueuedTask.Run(() => lpi.GetLayout()).ConfigureAwait(false);
         }
 
-        private async Task<RowCursor> GetRowCursorAsync(string mpiName, QueryFilter queryFilter = null)
+        private async Task<RowCursor> GetRowCursorAsync(Map map, QueryFilter queryFilter = null, string layerName = _layerName)
         {
-            Map map = await GetMapAsync(mpiName).ConfigureAwait(false);
-            FeatureClass featureClass = await GetFeatureClassAsync(map).ConfigureAwait(false);
+            // Map map = await GetMapAsync(mpiName).ConfigureAwait(false);
+            FeatureClass featureClass = await GetFeatureClassAsync(map, layerName).ConfigureAwait(false);
             return await QueuedTask.Run(() => featureClass.Search(queryFilter)).ConfigureAwait(false);
         }
 
-        private async Task<string[]> GetRowValuesAsync(RowCursor rowCursor, int textVariableIndex)
+        private async Task<List<string>> GetRowValuesAsync(RowCursor rowCursor, int textVariableIndex)
         {
             List<Task<string>> getValueTasks = new List<Task<string>>();
             do
@@ -580,7 +590,25 @@ namespace ProAppModule1
                 }
 
             } while (await QueuedTask.Run(() => rowCursor.MoveNext()).ConfigureAwait(false));
-            return await Task.WhenAll(getValueTasks).ConfigureAwait(false);
+            string[] names = await Task.WhenAll(getValueTasks).ConfigureAwait(false);
+            List<string> namesList = names.Distinct().ToList();
+            namesList.Remove("");
+            return namesList;
+        }
+
+        private async Task<List<string>> GetNeighborhoodLayerNamesAsync(Map map)
+        {
+            var names = new List<string>();
+            foreach(Layer layer in map.Layers)
+            {
+                RowCursor rowCursor = await GetRowCursorAsync(map, null, layer.Name);
+                if(!names.Contains(layer.Name) && rowCursor.FindField("TRACTCE") >= 0)
+                {
+                    names.Add(layer.Name);
+                }
+            }
+            names.Remove("");
+            return names;
         }
 
         private async Task<Envelope> GetEnvelopeAsync(RowCursor rowCursor)
@@ -683,7 +711,7 @@ namespace ProAppModule1
         /// <param name="queryFilter">The features whose extent used</param>
         private async Task<bool> ChangeExtent(MapFrame mapFrame, QueryFilter queryFilter=null)
         {
-            Task<RowCursor> rowCursorTask = GetRowCursorAsync(mapFrame.Map.Name, queryFilter);
+            Task<RowCursor> rowCursorTask = GetRowCursorAsync(mapFrame.Map, queryFilter);
             Task<Envelope> extentTask = GetEnvelopeAsync(await rowCursorTask.ConfigureAwait(false));
             return await await QueuedTask.Run(async () => mapFrame.MapView.ZoomToAsync(await extentTask));
         }
